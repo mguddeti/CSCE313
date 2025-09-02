@@ -15,19 +15,20 @@ public: // in C++, class members are private by default, explicitly add the publ
 
     Shape(int _vertices) {
         vertices = _vertices;
-        points = new Point *[vertices + 1]; // array of Point pointers
+        points = new Point *[vertices + 1](); // array of Point pointers
     }
 
     ~Shape() {
+        for (int i = 0; i < vertices; ++i) {
+            delete points[i]; // free each Point
+        }
         delete[] points; // destructor for heap-allocated variables
     }
 
     void addPoints(Point pts[]) {
 
-        for (int i = 0; i <= vertices; i++) {
-            // the source address is bad
-            points[i] = new Point();
-            memcpy(points[i], &pts[i % vertices], sizeof(Point));
+        for (int i = 0; i < vertices; ++i) {
+            points[i] = new Point(pts[i]);
         }
     }
 
@@ -76,4 +77,7 @@ int main() {
     // FIXME: print out area of tri and area of quad
     std::cout << tri->area() << std::endl;
     std::cout << quad->area() << std::endl;
+
+    delete tri;
+    delete quad;
 }
