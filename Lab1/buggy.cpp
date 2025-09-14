@@ -1,4 +1,3 @@
-#include <cstring> // required for memcpy
 #include <iostream>
 
 struct Point {
