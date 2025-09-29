@@ -1,0 +1,11 @@
+PA1 Report — Named Pipes
+
+1) Time vs File Size
+
+I created binary test files of different sizes (1MB, 5MB, 10MB, 50MB, 100MB). For each file, I ran the client and measured elapsed time using /usr/bin/time. I repeated the experiment with different buffer sizes (-m 256, 4096, 8192, 65536).
+
+The trend is approximately linear: as file size increases, transfer time also increases. Using a larger buffer reduces transfer time because fewer requests and responses are needed.
+
+2) Bottleneck
+
+The main bottleneck is the request–response over named pipes. Each chunk requires a pair of system calls and context switches, plus copying data. 
